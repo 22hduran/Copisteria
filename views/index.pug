@@ -1,0 +1,39 @@
+html(lang="en")
+  head
+    title COPISTERIA NODE
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(rel="stylesheet", href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css")
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js")
+    script(src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")
+    link(rel="stylesheet", href="/stylesheets/style.css")
+    script(src="./javascripts/impresora.js")  
+  body
+    .container
+      .row
+        h3 Hojas:0
+        p Introduce la impresora y el texto a imprimir
+      form(action="/impresion", method="post", class="form-inline", role="form") Impresora: 
+        select.form-control(name="idImpresora")
+          option(value="1") Impresora1
+          option(value="2") Impresora2
+          option(value="3") Impresora3
+        textarea.form-control(rows="4", name="texto")
+        input(type="submit", value="Enviar a impresora")
+      .row
+        each impresora in impresoras
+          .col-sm-4
+            a(class="delete-btn" data-id=impresora.id)
+              img(src=`images/A${impresora.id}.jpg`, alt="Procesa cola")
+            .toner
+              .tinta(style=`background-color:black`) #{impresora.tintanegra}%
+            .toner
+              .tinta(style=`background-color:yellow`) #{impresora.tintaamarilla}%
+            .toner
+              .tinta(style=`background-color:cyan`) #{impresora.tintacian}%
+            .toner
+              .tinta(style=`background-color:magenta`) #{impresora.tintarosa}%
+            .mensajes
+              ul.list-group
+                each impresion in impresora.impresiones
+                  li.list-group-item #{impresion.texto}
